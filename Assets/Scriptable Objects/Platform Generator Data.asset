@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9a901017bc0dc4aa6c59b3b68374fe, type: 3}
+  m_Name: Platform Generator Data
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 8696701829401300625, guid: 0c47cafb29c00a041b24600cc37ebc74, type: 3}
+  levelDifficulty: 0
+  trackLength: 30
+  trackLineLength: 7
+  trackWidth: 1
+  lastTilePosition: {x: 11, y: -0.5, z: 21}
+  tileSize: 1
+  xShift: 1
+  zShift: 0
