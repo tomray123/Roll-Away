@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlatformGeneratorMain: MonoBehaviour
 {
     [SerializeField]
-    private PlatformGeneratorData pgData;    
+    private PlatformGeneratorData pgData;
+    [SerializeField]
+    private PlatformGenerationChannel pgChennel;
     private PlatformGeneratorController pgController; 
 
     private void Start()
@@ -13,7 +15,9 @@ public class PlatformGeneratorMain: MonoBehaviour
         pgController = GetComponent<PlatformGeneratorController>();
 
         pgData.InitializeData();
-        pgController.GenerateTrack(pgData);   
+
+        pgController.GenerateTrack(pgData);
+        pgChennel.RaiseEvent();
     }
 
     private void Update()
@@ -30,7 +34,12 @@ public class PlatformGeneratorMain: MonoBehaviour
             {
                 pgData.lastTilePosition = pgData.tileStorage[pgData.tileStorage.Count - 1].transform.position + new Vector3(pgData.zShift, 0, -pgData.zShift);
             }
+
+            // Clearing storage.
+            pgData.tileStorage.Clear();
+
             pgController.GenerateTrack(pgData);
+            pgChennel.RaiseEvent();
         }
     }
 }

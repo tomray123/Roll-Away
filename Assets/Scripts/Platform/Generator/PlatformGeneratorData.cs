@@ -19,9 +19,9 @@ public class PlatformGeneratorData : ScriptableObject
     // Defines the length of track's generated part.
     public int trackLength = 30;
     // Defines the maximal possible length of track's straight part.
-    public int trackLineLength = 7;
+    public int trackLineLength = 5;
 
-    [Header("The distance after which to generate a new part of the track.")]
+    [Header("The distance after which to generate a new part of the track")]
     public float spawnEndDistance;
 
     // Other auxiliary variables.
@@ -52,6 +52,9 @@ public class PlatformGeneratorData : ScriptableObject
         // Initializing tiles storage.
         tileStorage = new List<GameObject>();
         trackWidth = (int)levelDifficulty + 1;
+
+        // The length must be divisible by 5 in order to generate crystals.
+        trackLength -= trackLength % 5;
 
         // Assume that track always go left at the start of the game.
         isLeft = true;
