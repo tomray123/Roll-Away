@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2461341bfcd3ef14596773ad11bcee7b, type: 3}
   m_Name: Platform Move Data
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   moveDirectionLeft: 0
