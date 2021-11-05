@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlatformGeneratorController: MonoBehaviour
 {
-    public void GenerateTrack(PlatformGeneratorData pgData)
+    [HideInInspector]
+    public PlatformGeneratorData pgData;
+
+    public void GenerateTrack()
     {
         // Length of next part of the track in tiles.
         int nextpartLength;
@@ -40,7 +43,7 @@ public class PlatformGeneratorController: MonoBehaviour
                 direction += shiftRight;
             }
 
-            GenerateLine(pgData, nextpartLength, direction, newTileScale);
+            GenerateLine(nextpartLength, direction, newTileScale);
 
             // Changing direction.
             pgData.isLeft = !pgData.isLeft;
@@ -56,7 +59,7 @@ public class PlatformGeneratorController: MonoBehaviour
         }
     }
 
-    private void GenerateLine(PlatformGeneratorData pgData, int length, Vector3 direction, Vector3 scale)
+    private void GenerateLine(int length, Vector3 direction, Vector3 scale)
     {
         // Spawning the tiles.
         for (int i = 0; i < length; i++)
@@ -71,5 +74,14 @@ public class PlatformGeneratorController: MonoBehaviour
             // Setting new position to next tile.
             pgData.lastTilePosition = nextPosition;
         }
+    }
+
+    public void DeleteTrack()
+    {
+        foreach (GameObject tile in pgData.tileStorage)
+        {
+            Destroy(tile);
+        }
+        pgData.tileStorage.Clear();
     }
 }

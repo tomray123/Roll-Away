@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb73eb44619d6cc42b44d871f3769b64, type: 3}
-  m_Name: Gem Generator Data
+  m_Script: {fileID: 11500000, guid: 08633ce099e0f2f4ca1988fe6317aad1, type: 3}
+  m_Name: Gem Trigger Channel
   m_EditorClassIdentifier: 
-  gemPrefab: {fileID: 713869423690789463, guid: a0613c0426b986e44a8b4b0c915b1aa6, type: 3}
-  generationType: 1
-  gemPosition: 5

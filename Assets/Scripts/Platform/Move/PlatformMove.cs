@@ -11,7 +11,10 @@ public class PlatformMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (GameManagerData.isGameRunning)
+        {
+            Move();
+        }
     }
 
     private void OnEnable()
