@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Gem Generator Data
   m_EditorClassIdentifier: 
   gemPrefab: {fileID: 713869423690789463, guid: a0613c0426b986e44a8b4b0c915b1aa6, type: 3}
-  generationType: 1
-  gemPosition: 5
+  generationType: 0
+  gemPosition: 1

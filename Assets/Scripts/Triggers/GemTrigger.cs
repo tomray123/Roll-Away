@@ -10,7 +10,7 @@ public class GemTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        gtChannel.RaiseEvent(gameObject);
-        Destroy(gameObject);
+        gtChannel.RaiseEvent();
+        PoolController.Instance.ReturnToPool(gameObject);
     }
 }

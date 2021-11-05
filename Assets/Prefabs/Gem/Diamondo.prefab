@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 713869423692786839}
   - component: {fileID: 3675687892121048293}
   - component: {fileID: -6710013655231225903}
+  - component: {fileID: -241921810377667777}
   m_Layer: 0
   m_Name: Diamondo
   m_TagString: Untagged
@@ -109,3 +110,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gtChannel: {fileID: 11400000, guid: 4ec8e6169270819459f246f87533c987, type: 2}
+--- !u!114 &-241921810377667777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713869423690789463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f8ca0ff0ea4aa24d9d084cb52017db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolTag: 
+  objIdPool: 0

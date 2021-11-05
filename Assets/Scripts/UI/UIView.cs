@@ -12,6 +12,13 @@ public class UIView : MonoBehaviour
     [SerializeField]
     private GameObject loseText;
 
+    private GameObject scoreLabel;
+
+    private void Awake()
+    {
+        scoreLabel = scoreText.gameObject.transform.parent.gameObject;
+    }
+
     public void ChangeScoreView(int score)
     {
         scoreText.text = score.ToString();
@@ -24,7 +31,7 @@ public class UIView : MonoBehaviour
 
     public void DisplayScoreScreen()
     {
-        scoreText.gameObject.SetActive(true);
+        scoreLabel.SetActive(true);
     }
 
     public void DisplayGameOverScreen()
@@ -34,7 +41,7 @@ public class UIView : MonoBehaviour
 
     public void ClearScreen()
     {
-        scoreText.gameObject.SetActive(false);
+        scoreLabel.SetActive(false);
         startText.SetActive(false);
         loseText.SetActive(false);
     }

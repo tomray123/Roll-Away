@@ -32,18 +32,6 @@ public class PlatformGeneratorMain: MonoBehaviour
             // Checking for new last position.
             if (pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position.x < pgData.spawnEndDistance || pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position.z < pgData.spawnEndDistance)
             {
-                /*
-                // Correcting position while turning.
-                if (pgData.isLeft)
-                {
-                    pgData.lastTilePosition = pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position + new Vector3(-pgData.xShift, 0, pgData.xShift);
-                }
-                else
-                {
-                    pgData.lastTilePosition = pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position + new Vector3(pgData.xShift, 0, -pgData.xShift);
-                }
-                */
-
                 pgData.lastTilePosition = pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position;
 
                 // Clearing storage.

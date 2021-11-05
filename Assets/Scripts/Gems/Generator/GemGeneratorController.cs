@@ -19,7 +19,7 @@ public class GemGeneratorController : MonoBehaviour
         for (int i = 0; i < gemsNumber; i++)
         {
             int randomPosition = Random.Range(1, 5) + i * 5 - 1;
-            GameObject gem = Instantiate(gemsData.gemPrefab, pgData.generatedTrackPart[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
+            GameObject gem = PoolController.Instance.SpawnFromPool(gemsData.gemPrefab, pgData.generatedTrackPart[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
             gem.transform.parent = pgData.generatedTrackPart[randomPosition].transform;
         }
     }
@@ -34,7 +34,7 @@ public class GemGeneratorController : MonoBehaviour
         for (int i = 0; i < gemsNumber; i++)
         {
             int randomPosition = gemsData.gemPosition + i * 5 - 1;
-            GameObject gem = Instantiate(gemsData.gemPrefab, pgData.generatedTrackPart[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
+            GameObject gem = PoolController.Instance.SpawnFromPool(gemsData.gemPrefab, pgData.generatedTrackPart[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
             gem.transform.parent = pgData.generatedTrackPart[randomPosition].transform;
 
             gemsData.gemPosition++;

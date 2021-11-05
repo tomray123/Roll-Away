@@ -20,7 +20,8 @@ public class PlatformGeneratorController: MonoBehaviour
             nextPosition += new Vector3(-pgData.originalTileSize * i, 0, 0);
             for (int j = 0; j < 3; j++)
             {
-                GameObject tile = Instantiate(pgData.tilePrefab, nextPosition, Quaternion.identity, transform);
+                GameObject tile = PoolController.Instance.SpawnFromPool(pgData.tilePrefab, nextPosition, Quaternion.identity);
+                tile.transform.parent = transform;
                 pgData.tileStorage.Enqueue(tile);
                 nextPosition += new Vector3(0, 0, -pgData.originalTileSize);
             }
@@ -72,7 +73,8 @@ public class PlatformGeneratorController: MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             Vector3 nextPosition = pgData.lastTilePosition + direction;
-            GameObject tile = Instantiate(pgData.tilePrefab, nextPosition, Quaternion.identity, transform);
+            GameObject tile = PoolController.Instance.SpawnFromPool(pgData.tilePrefab, nextPosition, Quaternion.identity);
+            tile.transform.parent = transform;
 
             // Adding tile to storages.
             pgData.generatedTrackPart.Add(tile);
@@ -92,7 +94,7 @@ public class PlatformGeneratorController: MonoBehaviour
         {
             if (tile)
             {
-                Destroy(tile);
+                PoolController.Instance.ReturnToPool(tile);
             }
         }
 

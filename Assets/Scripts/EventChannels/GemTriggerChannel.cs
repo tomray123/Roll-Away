@@ -7,13 +7,13 @@ using UnityEngine.Events;
 public class GemTriggerChannel : ScriptableObject
 {
     [HideInInspector]
-    public UnityAction<GameObject> gemTriggerEvent;
+    public UnityEvent gemTriggerEvent;
 
-    public void RaiseEvent(GameObject sender)
+    public void RaiseEvent()
     {
         if (gemTriggerEvent != null)
         {
-            gemTriggerEvent.Invoke(sender);
+            gemTriggerEvent.Invoke();
         }
     }
 }

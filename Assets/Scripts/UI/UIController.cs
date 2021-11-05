@@ -8,8 +8,8 @@ public class UIController : MonoBehaviour
     private UIData model;
     [SerializeField]
     private GemTriggerChannel gtChannel;
-    
-    private UIView view;
+    [SerializeField]
+    public UIView view;
 
     void Start()
     {
@@ -19,15 +19,15 @@ public class UIController : MonoBehaviour
 
     private void OnEnable()
     {
-        gtChannel.gemTriggerEvent += UpdateScore;
+        gtChannel.gemTriggerEvent.AddListener(UpdateScore);
     }
 
     private void OnDisable()
     {
-        gtChannel.gemTriggerEvent -= UpdateScore;
+        gtChannel.gemTriggerEvent.RemoveListener(UpdateScore);
     }
 
-    public void UpdateScore(GameObject gem)
+    public void UpdateScore()
     {
         model.score += 1;
         view.ChangeScoreView(model.score);

@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     {
         // Drawing UI.
         uIView.ClearScreen();
+        uIView.ChangeScoreView(0);
         uIView.DisplayScoreScreen();
 
         data.gameState = GameState.play;

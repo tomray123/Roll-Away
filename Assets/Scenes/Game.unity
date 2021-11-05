@@ -192,6 +192,7 @@ Transform:
   - {fileID: 1546425170}
   - {fileID: 334700940}
   - {fileID: 1522551669}
+  - {fileID: 793036845}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -305,7 +306,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &220542987
 GameObject:
@@ -748,6 +749,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 11400000, guid: 746b44627b5106646b3e2ba0f8665e6d, type: 2}
   gtChannel: {fileID: 11400000, guid: 4ec8e6169270819459f246f87533c987, type: 2}
+--- !u!1 &793036844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793036845}
+  - component: {fileID: 793036846}
+  m_Layer: 0
+  m_Name: Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &793036845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793036844}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 43.87255, y: -30.023706, z: 10.965148}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 121113972}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793036846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793036844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c0aae3b086fcf409b85d9f1205b00a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: gem
+    prefab: {fileID: 713869423690789463, guid: a0613c0426b986e44a8b4b0c915b1aa6, type: 3}
+    size: 20
+    parent: {fileID: 0}
+  - tag: platform
+    prefab: {fileID: 8696701829401300625, guid: 0c47cafb29c00a041b24600cc37ebc74, type: 3}
+    size: 70
+    parent: {fileID: 0}
 --- !u!1 &914108824
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,6 @@ public class PlatformDestroyer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Destroying game objects.
-        Destroy(other.gameObject);
+        PoolController.Instance.ReturnToPool(other.gameObject);
     }
 }

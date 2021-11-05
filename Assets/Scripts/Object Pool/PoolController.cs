@@ -278,6 +278,8 @@ public class PoolController : MonoBehaviour
             iPooledObj.OnObjectDestroy();
         }
 
+        Pool searchedPool = pools.Find(x => x.tag == pooledObj.poolTag);
+        returning.transform.parent = searchedPool.parent.transform;
         returning.SetActive(false);
         poolDictionary[pooledObj.poolTag][pooledObj.objIdPool].isAvailable = true;
     }
