@@ -6,6 +6,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Fall Trigger Channel")]
 public class FallTriggerChannel : ScriptableObject
 {
+    // This event is called when player falls from track.
     [HideInInspector]
     public UnityEvent fallTriggerEvent;
 

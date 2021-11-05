@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PooledObject: MonoBehaviour
 {
+    // Auxiliary Variables.
     [HideInInspector]
     public string poolTag;
     [HideInInspector]

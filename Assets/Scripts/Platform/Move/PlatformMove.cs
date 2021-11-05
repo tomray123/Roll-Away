@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class PlatformMove : MonoBehaviour
 {
+
+    [Header("Input manager")]
     [SerializeField]
     private InputController input;
+
+    [Header("Platform Move Scriptable Object")]
     [SerializeField]
     private PlatformMoveData pmData;
+
+    [Header("Game State Event Channel")]
     [SerializeField]
     private GameStateChannel gameState;
 
     private void FixedUpdate()
     {
+        // If playing then move track.
         if (GameManagerData.isGameRunning)
         {
             Move();
@@ -21,15 +28,19 @@ public class PlatformMove : MonoBehaviour
 
     private void OnEnable()
     {
+        // Initializing data.
         pmData.InitializeData();
+        // Subscribing to corresponding event.
         gameState.gameStateChangeEvent += OnGameStateChanged;
     }
 
     private void OnDisable()
     {
+        // Unsubscribing from corresponding event.
         gameState.gameStateChangeEvent -= OnGameStateChanged;
     }
 
+    // Moves track.
     private void Move()
     {
         // Movement direction.
@@ -48,6 +59,7 @@ public class PlatformMove : MonoBehaviour
         }
     }
 
+    // Changing direction when button is clicked.
     private void ChangeDirection()
     {
         if (GameManagerData.isGameRunning)
@@ -56,6 +68,7 @@ public class PlatformMove : MonoBehaviour
         }
     }
 
+    // Enables and disables onClick listener.
     private void OnGameStateChanged(GameState newState)
     {
         if (newState == GameState.play)

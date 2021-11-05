@@ -8,7 +8,6 @@ public class InputController : MonoBehaviour
     [HideInInspector]
     public UnityEvent onClick;
 
-    // Update is called once per frame
     void Update()
     {
         // Invoking OnClick event when user clicks button.

@@ -9,6 +9,7 @@ public class GemGeneratorController : MonoBehaviour
     [HideInInspector]
     public GemGeneratorData gemsData;
 
+    // Called when gems have to be generated randomly.
     public void GenerateGemsRandomly()
     {
         int gemsNumber = pgData.generatedTrackPart.Count / 5;
@@ -16,6 +17,7 @@ public class GemGeneratorController : MonoBehaviour
         // A shift designed to keep the gems above the tile.
         Vector3 gemShift = new Vector3(0, pgData.originalTileSize, 0);
 
+        // Spawning gems.
         for (int i = 0; i < gemsNumber; i++)
         {
             int randomPosition = Random.Range(1, 5) + i * 5 - 1;
@@ -24,6 +26,7 @@ public class GemGeneratorController : MonoBehaviour
         }
     }
 
+    // Called when gems have to be generated consistently.
     public void GenerateGemsConsistently()
     {
         int gemsNumber = pgData.generatedTrackPart.Count / 5;
@@ -31,6 +34,7 @@ public class GemGeneratorController : MonoBehaviour
         // A shift designed to keep the gems above the tile.
         Vector3 gemShift = new Vector3(0, pgData.originalTileSize, 0);
 
+        // Spawning gems.
         for (int i = 0; i < gemsNumber; i++)
         {
             int randomPosition = gemsData.gemPosition + i * 5 - 1;

@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Platform Generator Data
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 8696701829401300625, guid: 0c47cafb29c00a041b24600cc37ebc74, type: 3}
-  levelDifficulty: 2
+  levelDifficulty: 0
   trackLength: 40
   trackLineLength: 5
-  spawnEndDistance: 10
-  trackWidth: 3
-  lastTilePosition: {x: 66, y: -0.5, z: 54}
+  spawnEndDistance: 20
+  trackWidth: 1
+  lastTilePosition: {x: 20, y: -0.5, z: 22}
   initialTilePosition: {x: 1, y: -0.5, z: 1}
   originalTileSize: 1
-  tileSize: 3
-  xShift: 1
+  tileSize: 1
+  xShift: 0
   generatedTrackPart:
   - {fileID: 0}
   - {fileID: 0}
@@ -64,5 +64,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  isLeft: 1
-  newTileScale: {x: 3, y: 1, z: 3}
+  isLeft: 0
+  newTileScale: {x: 1, y: 1, z: 1}

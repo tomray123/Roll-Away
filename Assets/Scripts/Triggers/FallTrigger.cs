@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Raise event if player fell down from track.
 public class FallTrigger : MonoBehaviour
 {
-    // Event channel for gems triggers.
+    [Header("Fall Trigger Event Channel")]
     [SerializeField]
     private FallTriggerChannel gtChannel;
 

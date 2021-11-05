@@ -6,6 +6,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Gem Trigger Channel")]
 public class GemTriggerChannel : ScriptableObject
 {
+    // This event is called when player collects the trigger.
     [HideInInspector]
     public UnityEvent gemTriggerEvent;
 

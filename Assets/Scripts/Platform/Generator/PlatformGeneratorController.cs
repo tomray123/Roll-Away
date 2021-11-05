@@ -7,13 +7,16 @@ public class PlatformGeneratorController: MonoBehaviour
     [HideInInspector]
     public PlatformGeneratorData pgData;
 
+    // Generates start platform (3x3)
     public void GenerateStartPlatform()
     {
         // Setting initial position.
-        Vector3 initPosition = pgData.initialTilePosition;
-        Vector3 nextPosition;
+        Vector3 initPosition = new Vector3(0, -(pgData.originalTileSize / 2), 0);
+        Vector3 platformScale = new Vector3(pgData.originalTileSize * 3, pgData.originalTileSize, pgData.originalTileSize * 3);
 
-        // Generating start platform.
+        // Generating start platform (3x3).
+
+        /*
         for (int i = 0; i < 3; i++)
         {
             nextPosition = initPosition;
@@ -26,8 +29,15 @@ public class PlatformGeneratorController: MonoBehaviour
                 nextPosition += new Vector3(0, 0, -pgData.originalTileSize);
             }
         }
+        */
+
+        GameObject tile = PoolController.Instance.SpawnFromPool(pgData.tilePrefab, initPosition, Quaternion.identity);
+        tile.transform.localScale = platformScale;
+        tile.transform.parent = transform;
+        pgData.tileStorage.Enqueue(tile);
     }
 
+    // Generates part of track.
     public void GenerateTrack()
     {
         // Length of next part of the track in tiles.
@@ -37,6 +47,7 @@ public class PlatformGeneratorController: MonoBehaviour
         // Defines the maximal possible length of track's straight part.
         int maxLineLength = pgData.trackLineLength;
 
+        // Spawning until tiles will finish.
         while (tilesLeft > 0)
         {
             if (maxLineLength > tilesLeft)
@@ -47,10 +58,12 @@ public class PlatformGeneratorController: MonoBehaviour
             nextpartLength = Random.Range(1, maxLineLength);
             tilesLeft -= nextpartLength;
 
+            // Shifts for modifying spawn position.
             Vector3 shiftLeft = new Vector3(0, 0, pgData.tileSize);
             Vector3 shiftRight = new Vector3(pgData.tileSize, 0, 0);
             Vector3 direction = Vector3.zero;
 
+            // Choose shift.
             if (pgData.isLeft)
             {
                 direction += shiftLeft;
@@ -67,6 +80,7 @@ public class PlatformGeneratorController: MonoBehaviour
         }
     }
 
+    // Generates straight line of tiles.
     private void GenerateLine(int length, Vector3 direction, Vector3 scale)
     {
         // Spawning the tiles.
@@ -87,6 +101,7 @@ public class PlatformGeneratorController: MonoBehaviour
         }
     }
 
+    // Cleaning every tile.
     public void DeleteTrack()
     {
         // Destroying start platform.

@@ -12,11 +12,13 @@ public enum GameState
 [CreateAssetMenu(menuName = "Game Manager Data")]
 public class GameManagerData : ScriptableObject
 {
+    // Defines whether game is running or not.
     public static bool isGameRunning;
 
     [HideInInspector]
     public GameState gameState;
 
+    [Header("Data Scriptable Objects")]
     [SerializeField]
     private UIData uIData;
     [SerializeField]

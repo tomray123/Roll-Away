@@ -16,7 +16,6 @@ public class GemGeneratorData : ScriptableObject
     // Defines how gems are generated.
     public GemGenerationType generationType = GemGenerationType.Randomly;
 
-    // Other auxiliary variables.
     // Defines the gem position when consistently generation type is used.
     [HideInInspector]
     public int gemPosition;

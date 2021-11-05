@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Data holder")]
     [SerializeField]
     private GameManagerData data;
+
+    [Header("Input manager")]
     [SerializeField]
     private InputController input;
-    [SerializeField]
-    private UIView uIView;
-    [SerializeField]
-    private PlatformGeneratorMain plGenerator;
+
+    [Header("Event channels")]
     [SerializeField]
     private FallTriggerChannel fallChannel;
     [SerializeField]
     private GameStateChannel gameState;
+
+    [Header("Other")]
     [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private UIView uIView;
+    [SerializeField]
+    private PlatformGeneratorMain plGenerator;
 
     void Start()
     {
@@ -28,6 +35,7 @@ public class GameManager : MonoBehaviour
         uIView.ClearScreen();
         uIView.DisplayStartScreen();
 
+        // Changing game state.
         data.gameState = GameState.start;
         gameState.RaiseEvent(GameState.start);
     }
@@ -48,10 +56,11 @@ public class GameManager : MonoBehaviour
         uIView.ClearScreen();
         uIView.DisplayStartScreen();
 
-        // Settnig player.
+        // Setting player.
         player.SetActive(true);
         player.transform.position = new Vector3(0, 0.25f, 0);
 
+        // Changing game state.
         data.gameState = GameState.start;
         gameState.RaiseEvent(GameState.start);
     }
@@ -63,6 +72,7 @@ public class GameManager : MonoBehaviour
         uIView.ChangeScoreView(0);
         uIView.DisplayScoreScreen();
 
+        // Changing game state.
         data.gameState = GameState.play;
         gameState.RaiseEvent(GameState.play);
         GameManagerData.isGameRunning = true;
@@ -79,9 +89,9 @@ public class GameManager : MonoBehaviour
         // Drawing UI.
         uIView.DisplayGameOverScreen();
 
+        // Changing game state.
         input.onClick.AddListener(ManageClick);
         GameManagerData.isGameRunning = false;
-
         data.gameState = GameState.gameOver;
         gameState.RaiseEvent(GameState.gameOver);
     }
@@ -108,12 +118,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        // Subscribing to corresponding events.
         input.onClick.AddListener(ManageClick);
         fallChannel.fallTriggerEvent.AddListener(OnLose);
     }
 
     private void OnDisable()
     {
+        // Unsubscribing from corresponding events.
         input.onClick.RemoveListener(ManageClick);
         fallChannel.fallTriggerEvent.RemoveListener(OnLose);
     }

@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class PlatformGeneratorMain: MonoBehaviour
 {
+    [Header("Platform Generator Scriptable Object")]
     [SerializeField]
     private PlatformGeneratorData pgData;
+
+    [Header("Platform Generation Event Channel")]
     [SerializeField]
-    private PlatformGenerationChannel pgChennel;
+    private PlatformGenerationChannel pgChannel;
+
     [HideInInspector]
     public PlatformGeneratorController pgController;
 
     private void Awake()
     {
+        // Initializing some variables.
         pgController = GetComponent<PlatformGeneratorController>();
         pgController.pgData = pgData;
     }
 
     private void Start()
     {
+        // Initializing data.
         pgData.InitializeData();
-
+        // Generating start platform.
         pgController.GenerateStartPlatform();
         BuildNewTrack();
     }
 
     private void Update()
     {
+        // Building a new part of the track if the old one is almost gone.
         if (GameManagerData.isGameRunning && pgData.generatedTrackPart.Count > 0)
         {
             // Checking for new last position.
@@ -37,6 +44,7 @@ public class PlatformGeneratorMain: MonoBehaviour
                 // Clearing storage.
                 pgData.generatedTrackPart.Clear();
 
+                // Building new track
                 BuildNewTrack();
             }
         }
@@ -46,6 +54,6 @@ public class PlatformGeneratorMain: MonoBehaviour
     public void BuildNewTrack()
     {
         pgController.GenerateTrack();
-        pgChennel.RaiseEvent();
+        pgChannel.RaiseEvent();
     }
 }
