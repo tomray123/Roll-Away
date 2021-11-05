@@ -8,6 +8,8 @@ public class PlatformMove : MonoBehaviour
     private InputController input;
     [SerializeField]
     private PlatformMoveData pmData;
+    [SerializeField]
+    private GameStateChannel gameState;
 
     private void FixedUpdate()
     {
@@ -20,12 +22,12 @@ public class PlatformMove : MonoBehaviour
     private void OnEnable()
     {
         pmData.InitializeData();
-        input.onClick.AddListener(ChangeDirection);
+        gameState.gameStateChangeEvent += OnGameStateChanged;
     }
 
     private void OnDisable()
     {
-        input.onClick.RemoveListener(ChangeDirection);
+        gameState.gameStateChangeEvent -= OnGameStateChanged;
     }
 
     private void Move()
@@ -48,6 +50,21 @@ public class PlatformMove : MonoBehaviour
 
     private void ChangeDirection()
     {
-        pmData.moveDirectionLeft = !pmData.moveDirectionLeft;
+        if (GameManagerData.isGameRunning)
+        {
+            pmData.moveDirectionLeft = !pmData.moveDirectionLeft;
+        }
+    }
+
+    private void OnGameStateChanged(GameState newState)
+    {
+        if (newState == GameState.play)
+        {
+            input.onClick.AddListener(ChangeDirection);
+        }
+        if (newState == GameState.gameOver)
+        {
+            input.onClick.RemoveListener(ChangeDirection);
+        }
     }
 }

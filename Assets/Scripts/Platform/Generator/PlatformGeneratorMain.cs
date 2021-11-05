@@ -9,42 +9,55 @@ public class PlatformGeneratorMain: MonoBehaviour
     [SerializeField]
     private PlatformGenerationChannel pgChennel;
     [HideInInspector]
-    public PlatformGeneratorController pgController; 
+    public PlatformGeneratorController pgController;
 
-    private void Start()
+    private void Awake()
     {
         pgController = GetComponent<PlatformGeneratorController>();
         pgController.pgData = pgData;
+    }
 
+    private void Start()
+    {
         pgData.InitializeData();
 
-        pgController.GenerateTrack();
-        pgChennel.RaiseEvent();
+        pgController.GenerateStartPlatform();
+        BuildNewTrack();
     }
 
     private void Update()
     {
-        if (GameManagerData.isGameRunning && pgData.tileStorage.Count > 0)
+        if (GameManagerData.isGameRunning && pgData.generatedTrackPart.Count > 0)
         {
             // Checking for new last position.
-            if (pgData.tileStorage[pgData.tileStorage.Count - 1].transform.position.x < pgData.spawnEndDistance || pgData.tileStorage[pgData.tileStorage.Count - 1].transform.position.z < pgData.spawnEndDistance)
+            if (pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position.x < pgData.spawnEndDistance || pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position.z < pgData.spawnEndDistance)
             {
+                /*
                 // Correcting position while turning.
                 if (pgData.isLeft)
                 {
-                    pgData.lastTilePosition = pgData.tileStorage[pgData.tileStorage.Count - 1].transform.position + new Vector3(-pgData.zShift, 0, pgData.zShift);
+                    pgData.lastTilePosition = pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position + new Vector3(-pgData.xShift, 0, pgData.xShift);
                 }
                 else
                 {
-                    pgData.lastTilePosition = pgData.tileStorage[pgData.tileStorage.Count - 1].transform.position + new Vector3(pgData.zShift, 0, -pgData.zShift);
+                    pgData.lastTilePosition = pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position + new Vector3(pgData.xShift, 0, -pgData.xShift);
                 }
+                */
+
+                pgData.lastTilePosition = pgData.generatedTrackPart[pgData.generatedTrackPart.Count - 1].transform.position;
 
                 // Clearing storage.
-                pgData.tileStorage.Clear();
+                pgData.generatedTrackPart.Clear();
 
-                pgController.GenerateTrack();
-                pgChennel.RaiseEvent();
+                BuildNewTrack();
             }
         }
+    }
+
+    // Generates new track and raises event.
+    public void BuildNewTrack()
+    {
+        pgController.GenerateTrack();
+        pgChennel.RaiseEvent();
     }
 }

@@ -28,29 +28,40 @@ public class PlatformGeneratorData : ScriptableObject
     // Defines the track width in tiles.
     [HideInInspector]
     public int trackWidth;
-    // Defines the maximal possible length of track's straight part.
+    // Defines the last generated tile position.
     [HideInInspector]
     public Vector3 lastTilePosition;
-    // Size of one side of a tile.
+    // Defines initial position for track.
+    [HideInInspector]
+    public Vector3 initialTilePosition;
+    // Size of one side of tile prefab.
+    [HideInInspector]
+    public float originalTileSize;
+    // Size of one side of a new tile.
     [HideInInspector]
     public float tileSize;
-    // Corrective shift along the local x-axis during platform rotation.
-    [HideInInspector]
-    public float xShift;
     // Corrective shift along the local z-axis during platform rotation.
     [HideInInspector]
-    public float zShift;
-    // Storage for each tile.
+    public float xShift;
+    // Storage for track part and gem generation.
     [HideInInspector]
-    public List<GameObject> tileStorage;
+    public List<GameObject> generatedTrackPart;
+    // Storage for every tile on level.
+    [HideInInspector]
+    public Queue<GameObject> tileStorage;
     // Initial track orientation to start from.
     [HideInInspector]
     public bool isLeft = true;
+    // New scale for tiles (if track width is more than 1 in tiles).
+    [HideInInspector]
+    public Vector3 newTileScale;
 
     public void InitializeData()
     {
-        // Initializing tiles storage.
-        tileStorage = new List<GameObject>();
+        // Initializing tiles storages.
+        generatedTrackPart = new List<GameObject>();
+        tileStorage = new Queue<GameObject>();
+
         trackWidth = (int)levelDifficulty + 1;
 
         // The length must be divisible by 5 in order to generate crystals.
@@ -60,13 +71,15 @@ public class PlatformGeneratorData : ScriptableObject
         isLeft = true;
 
         // Assuming that the top plane of the tile is always square.
-        tileSize = tilePrefab.transform.localScale.x;
-        
+        originalTileSize = tilePrefab.transform.localScale.x;
+        tileSize = originalTileSize * trackWidth;
+        newTileScale = new Vector3(tileSize, originalTileSize, tileSize);
+
         // Calculating corrective shifts.
-        xShift = tileSize * (trackWidth + 1) / 2;
-        zShift = tileSize * (trackWidth - 1) / 2;
+        xShift = originalTileSize * (trackWidth - 1) / 2;
 
         // Initial position will be different for every track width.
-        lastTilePosition = new Vector3(tileSize - zShift, - (tilePrefab.transform.localScale.y / 2), tileSize);
+        initialTilePosition = new Vector3(originalTileSize, -(tilePrefab.transform.localScale.y / 2), originalTileSize);
+        lastTilePosition = initialTilePosition - new Vector3(xShift, 0, xShift);
     }
 }

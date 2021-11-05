@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private FallTriggerChannel fallChannel;
     [SerializeField]
+    private GameStateChannel gameState;
+    [SerializeField]
     private GameObject player;
 
     void Start()
@@ -27,22 +29,31 @@ public class GameManager : MonoBehaviour
         uIView.DisplayStartScreen();
 
         data.gameState = GameState.start;
+        gameState.RaiseEvent(GameState.start);
     }
 
     private void ShowStartMenu()
     {
-        // Cleaning and building new track.
+        // Cleaning old track.
         plGenerator.pgController.DeleteTrack();
-        plGenerator.pgController.GenerateTrack();
 
         // Setting defaults.
         data.InitializeData();
+
+        // Building new track.
+        plGenerator.pgController.GenerateStartPlatform();
+        plGenerator.BuildNewTrack();
 
         // Drawing UI.
         uIView.ClearScreen();
         uIView.DisplayStartScreen();
 
+        // Settnig player.
+        player.SetActive(true);
+        player.transform.position = new Vector3(0, 0.25f, 0);
+
         data.gameState = GameState.start;
+        gameState.RaiseEvent(GameState.start);
     }
 
     private void StartGame()
@@ -52,6 +63,7 @@ public class GameManager : MonoBehaviour
         uIView.DisplayScoreScreen();
 
         data.gameState = GameState.play;
+        gameState.RaiseEvent(GameState.play);
         GameManagerData.isGameRunning = true;
 
         // Don't listen to UI clicks while playing.
@@ -60,6 +72,9 @@ public class GameManager : MonoBehaviour
 
     private void OnLose()
     {
+        // Disabling player.
+        player.SetActive(false);
+
         // Drawing UI.
         uIView.DisplayGameOverScreen();
 
@@ -67,6 +82,7 @@ public class GameManager : MonoBehaviour
         GameManagerData.isGameRunning = false;
 
         data.gameState = GameState.gameOver;
+        gameState.RaiseEvent(GameState.gameOver);
     }
 
     public void ManageClick()

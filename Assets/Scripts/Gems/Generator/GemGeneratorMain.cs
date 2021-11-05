@@ -13,7 +13,7 @@ public class GemGeneratorMain : MonoBehaviour
 
     private GemGeneratorController ggController;
 
-    void Start()
+    private void Awake()
     {
         ggController = GetComponent<GemGeneratorController>();
         ggController.pgData = pgData;
@@ -41,10 +41,5 @@ public class GemGeneratorMain : MonoBehaviour
         {
             ggController.GenerateGemsConsistently();
         }
-    }
-
-    void Update()
-    {
-        
     }
 }

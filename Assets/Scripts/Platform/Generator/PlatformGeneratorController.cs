@@ -7,6 +7,26 @@ public class PlatformGeneratorController: MonoBehaviour
     [HideInInspector]
     public PlatformGeneratorData pgData;
 
+    public void GenerateStartPlatform()
+    {
+        // Setting initial position.
+        Vector3 initPosition = pgData.initialTilePosition;
+        Vector3 nextPosition;
+
+        // Generating start platform.
+        for (int i = 0; i < 3; i++)
+        {
+            nextPosition = initPosition;
+            nextPosition += new Vector3(-pgData.originalTileSize * i, 0, 0);
+            for (int j = 0; j < 3; j++)
+            {
+                GameObject tile = Instantiate(pgData.tilePrefab, nextPosition, Quaternion.identity, transform);
+                pgData.tileStorage.Enqueue(tile);
+                nextPosition += new Vector3(0, 0, -pgData.originalTileSize);
+            }
+        }
+    }
+
     public void GenerateTrack()
     {
         // Length of next part of the track in tiles.
@@ -15,8 +35,6 @@ public class PlatformGeneratorController: MonoBehaviour
         int tilesLeft = pgData.trackLength;
         // Defines the maximal possible length of track's straight part.
         int maxLineLength = pgData.trackLineLength;
-        // Defines new tile scale depending on level difficulty.
-        Vector3 newTileScale;
 
         while (tilesLeft > 0)
         {
@@ -34,28 +52,17 @@ public class PlatformGeneratorController: MonoBehaviour
 
             if (pgData.isLeft)
             {
-                newTileScale = new Vector3(pgData.tileSize * pgData.trackWidth, pgData.tileSize, pgData.tileSize);
                 direction += shiftLeft;
             }
             else
             {
-                newTileScale = new Vector3(pgData.tileSize, pgData.tileSize, pgData.tileSize * pgData.trackWidth);
                 direction += shiftRight;
             }
 
-            GenerateLine(nextpartLength, direction, newTileScale);
+            GenerateLine(nextpartLength, direction, pgData.newTileScale);
 
             // Changing direction.
             pgData.isLeft = !pgData.isLeft;
-            // Correcting position while turning.
-            if (pgData.isLeft)
-            {
-                pgData.lastTilePosition += new Vector3(-pgData.zShift, 0, pgData.zShift);
-            }
-            else
-            { 
-                pgData.lastTilePosition += new Vector3(pgData.zShift, 0, -pgData.zShift);
-            }
         }
     }
 
@@ -67,8 +74,10 @@ public class PlatformGeneratorController: MonoBehaviour
             Vector3 nextPosition = pgData.lastTilePosition + direction;
             GameObject tile = Instantiate(pgData.tilePrefab, nextPosition, Quaternion.identity, transform);
 
-            // Adding tile to storage.
-            pgData.tileStorage.Add(tile);
+            // Adding tile to storages.
+            pgData.generatedTrackPart.Add(tile);
+            pgData.tileStorage.Enqueue(tile);
+
             // Changing scale of spawned tile.
             tile.transform.localScale = scale;
             // Setting new position to next tile.
@@ -78,10 +87,17 @@ public class PlatformGeneratorController: MonoBehaviour
 
     public void DeleteTrack()
     {
+        // Destroying start platform.
         foreach (GameObject tile in pgData.tileStorage)
         {
-            Destroy(tile);
+            if (tile)
+            {
+                Destroy(tile);
+            }
         }
+
+        // Clearing storages.
         pgData.tileStorage.Clear();
+        pgData.generatedTrackPart.Clear();
     }
 }

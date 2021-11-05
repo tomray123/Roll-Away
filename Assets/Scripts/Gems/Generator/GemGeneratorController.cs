@@ -11,31 +11,31 @@ public class GemGeneratorController : MonoBehaviour
 
     public void GenerateGemsRandomly()
     {
-        int gemsNumber = pgData.tileStorage.Count / 5;
+        int gemsNumber = pgData.generatedTrackPart.Count / 5;
 
         // A shift designed to keep the gems above the tile.
-        Vector3 gemShift = new Vector3(0, pgData.tilePrefab.transform.localScale.y / 2 + pgData.tileSize / 2, 0);
+        Vector3 gemShift = new Vector3(0, pgData.originalTileSize, 0);
 
         for (int i = 0; i < gemsNumber; i++)
         {
             int randomPosition = Random.Range(1, 5) + i * 5 - 1;
-            GameObject gem = Instantiate(gemsData.gemPrefab, pgData.tileStorage[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
-            gem.transform.parent = pgData.tileStorage[randomPosition].transform;
+            GameObject gem = Instantiate(gemsData.gemPrefab, pgData.generatedTrackPart[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
+            gem.transform.parent = pgData.generatedTrackPart[randomPosition].transform;
         }
     }
 
     public void GenerateGemsConsistently()
     {
-        int gemsNumber = pgData.tileStorage.Count / 5;
+        int gemsNumber = pgData.generatedTrackPart.Count / 5;
 
         // A shift designed to keep the gems above the tile.
-        Vector3 gemShift = new Vector3(0, pgData.tilePrefab.transform.localScale.y / 2 + pgData.tileSize / 2, 0);
+        Vector3 gemShift = new Vector3(0, pgData.originalTileSize, 0);
 
         for (int i = 0; i < gemsNumber; i++)
         {
             int randomPosition = gemsData.gemPosition + i * 5 - 1;
-            GameObject gem = Instantiate(gemsData.gemPrefab, pgData.tileStorage[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
-            gem.transform.parent = pgData.tileStorage[randomPosition].transform;
+            GameObject gem = Instantiate(gemsData.gemPrefab, pgData.generatedTrackPart[randomPosition].transform.position + gemShift, gemsData.gemPrefab.transform.rotation);
+            gem.transform.parent = pgData.generatedTrackPart[randomPosition].transform;
 
             gemsData.gemPosition++;
 
